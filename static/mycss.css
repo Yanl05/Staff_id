@@ -1,0 +1,11 @@
+.layui-form-label {
+    width: 100px;
+}
+
+.layui-form-item {
+    padding-top: 5px;
+}
+
+.layui-form-item input{
+    width: 200px;
+}

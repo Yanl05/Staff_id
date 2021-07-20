@@ -1,0 +1,191 @@
+{% extends "homePage.html" %}
+
+{% block page-main %}
+
+    <link rel="stylesheet" href="/static/mycss.css" media="all">
+    {#时间选择#}
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>HIS系统现有权限查询</legend>
+    </fieldset>
+
+
+    {#    <form class="layui-form" lay-filter="example" method="post" action="/searchStaff">#}
+{#    <form class="layui-form">#}
+        <div class="layui-inline">
+            <label class="layui-form-label">姓名:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="queryname" id="queryname" lay-verify="required" autocomplete="off" class="layui-input"
+                       placeholder="请输入姓名">
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">工作科室:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="querykeshi" id="querykeshi" lay-verify="required" autocomplete="off" class="layui-input"
+                       placeholder="请输入科室">
+            </div>
+        </div>
+
+        <div class="layui-form-item" style="padding-top: 30px;">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" id="send-button">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+{#    </form>#}
+
+
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>结果</legend>
+    </fieldset>
+
+    <form class="layui-form" lay-filter="example">
+        <div class="layui-inline">
+            <label class="layui-form-label">姓名:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" id="name" lay-verify="required" autocomplete="off"
+                       class="layui-input layui-disabled">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">职称:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="zhicheng" id="zhicheng" lay-verify="required" autocomplete="off"
+                       class="layui-input layui-disabled">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">工作科室:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="keshi" id="keshi" lay-verify="required" autocomplete="off"
+                       class="layui-input layui-disabled" >
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">工作岗位:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="gangwei" id="gangwei" lay-verify="required" autocomplete="off"
+                       class="layui-input layui-disabled" >
+            </div>
+        </div>
+
+
+        <div class="layui-form-item" style="margin-top: 30px;">
+            <label class="layui-form-label">抗生素权限:</label>
+            <div class="layui-input-block">
+                <input type="radio" name="kss" id="kss" value="5" title="无" checked="">
+                <input type="radio" name="kss" id="kss" value="1" title="一线">
+                <input type="radio" name="kss" id="kss" value="2" title="一线+二线">
+                <input type="radio" name="kss" id="kss" value="3" title="一线+二线+三线(需审批)">
+                <input type="radio" name="kss" id="kss" value="4" title="一线+二线+三线(不需审批)">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">毒、麻权限:</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="duma" id="duma" title="毒性、麻醉药品">
+                <input type="checkbox" name="fsyp" id="fsyp" title="放射药品">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">精神药品权限:</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="yljs" id="yljs" title="第一类精神药品">
+                <input type="checkbox" name="eljs" id="eljs" title="第二类精神药品">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">限控药品权限:</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="xkyp" id="xkyp" title="限控药品">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">门诊权限:</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="mzqx" id="mzqx" title="门诊权限">
+            </div>
+
+
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注:</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" name="bz" class="layui-textarea layui-disabled" style="width: 500px"></textarea>
+            </div>
+
+        </div>
+
+
+    </form>
+
+
+
+    <script>
+
+        layui.use('form', function () {
+            var form = layui.form;
+
+            //各种基于事件的操作
+            //自定义验证规则
+            form.verify({
+                title: function (value) {
+                    if (value.length < 5) {
+                        return '标题至少得5个字符啊';
+                    }
+                }
+                , pass: [
+                    /^[\S]{6,12}$/
+                    , '密码必须6到12位，且不能出现空格'
+                ]
+                , content: function (value) {
+                    layedit.sync(editIndex);
+                }
+            });
+
+
+            //表单赋值
+
+
+            $("#send-button").click(function () {
+                var name = $("#queryname").val();
+                var keshi = $("#querykeshi").val();
+
+                $.ajax({
+                    url: "/searchStaff/",
+                    type: "post",
+{#                    async: false,#}
+                    data: {
+                        "name": name,
+                        "keshi": keshi
+                    },
+                    success: function (data) {
+
+                        var a = data.fsyp;
+                        console.log(a);
+{#                        alert(a);#}
+                        form.val("example", {
+                            "name": data.name
+                            , "zhicheng": data.zhicheng // "name": "value"
+                            , "keshi": data.keshi // "name": "value"
+                            , "gangwei": data.gangwei // "name": "value"
+                            , "kss": data.kss // "name": "value"
+                            , "duma": data.duma
+                            , "fsyp": data.fsyp
+                            , "yljs": data.yljs //复选框选中状态
+                            , "eljs": data.eljs //开关状态
+                            , "xkyp": data.xkyp
+                            , "mzqx": data.mzqx
+                            , "bz": data.bz
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}

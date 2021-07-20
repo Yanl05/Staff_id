@@ -1,0 +1,157 @@
+{% extends "homePage.html" %}
+
+{% block page-main %}
+
+    <link rel="stylesheet" href="/static/mycss.css" media="all">
+    {#时间选择#}
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>信息系统工号开通申请单</legend>
+    </fieldset>
+
+
+    <form class="layui-form" lay-filter="example" method="post" action="/addStaffId">
+        <div class="layui-inline">
+            <label class="layui-form-label">姓名:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="name" id="name" lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入姓名">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">职称:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="zhicheng" id="zhicheng" lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入职称">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">工作科室:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="keshi" id="keshi" lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入科室">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">工作岗位:</label>
+            <div class="layui-input-inline">
+                <input type="text" name="gangwei" id="gangwei" lay-verify="required" autocomplete="off" class="layui-input" placeholder="请输入岗位">
+            </div>
+        </div>
+
+
+        <div class="layui-form-item" style="margin-top: 30px;">
+            <label class="layui-form-label">抗生素权限:</label>
+            <div class="layui-input-block">
+                <input type="radio" name="kss" id="kss" value="5" title="无" checked="">
+                <input type="radio" name="kss" id="kss" value="1" title="一线">
+                <input type="radio" name="kss" id="kss" value="2" title="一线+二线">
+                <input type="radio" name="kss" id="kss" value="3" title="一线+二线+三线(需审批)">
+                <input type="radio" name="kss" id="kss" value="4" title="一线+二线+三线(不需审批)">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">毒、麻权限:</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="duma" id="duma" title="毒性、麻醉药品">
+                <input type="checkbox" name="fsyp" id="fsyp" title="放射药品">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">精神药品权限:</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="yljs" id="yljs" title="第一类精神药品">
+                <input type="checkbox" name="eljs" id="eljs" title="第二类精神药品">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">限控药品权限:</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="xkyp" id="xkyp" title="限控药品">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">门诊权限:</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="mzqx" id="mzqx" title="门诊权限">
+            </div>
+
+
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注:</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" name="bz" class="layui-textarea" style="width: 500px"></textarea>
+            </div>
+
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" id="send-button">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
+
+    <script>
+
+        layui.use('form', function () {
+            var form = layui.form;
+
+            //各种基于事件的操作
+            //自定义验证规则
+            form.verify({
+                title: function (value) {
+                    if (value.length < 5) {
+                        return '标题至少得5个字符啊';
+                    }
+                }
+                , pass: [
+                    /^[\S]{6,12}$/
+                    , '密码必须6到12位，且不能出现空格'
+                ]
+                , content: function (value) {
+                    layedit.sync(editIndex);
+                }
+            });
+        });
+
+{#        $("#send-button").click(function () {#}
+{#            var name= $("#name").val();#}
+{#            var zhichen= $("#zhichen").val();#}
+{#            var keshi= $("#keshi").val();#}
+{#            var gangwei= $("#gangwei").val();#}
+{#            var kss= $("#kss").val();#}
+{#            var duma= $("#duma").val();#}
+{#            var yljs= $("#yljs").val();#}
+{#            var eljs= $("#eljs").val();#}
+{#            var xkyp= $("#xkyp").val();#}
+{#            var mzqx= $("#mzqx").val();#}
+{#            var bz= $("#bz").val();#}
+{#            $.ajax({#}
+{#                        url: "/createId/",#}
+{#                        type: "post",#}
+{#                        data: {#}
+{#                            "name": name,#}
+{#                            "zhichen":zhichen,#}
+{#                            "keshi":keshi,#}
+{#                            "gangwei":gangwei,#}
+{#                            "kss":kss,#}
+{#                            "duma":duma,#}
+{#                            "fsyp":fsyp,#}
+{#                            "yljs":yljs,#}
+{#                            "eljs":eljs,#}
+{#                            "xkyp":xkyp,#}
+{#                            "mzqx":mzqx,#}
+{#                            "bz":bz#}
+{#                        },#}
+{#                        success: function (data) {#}
+{#                            layer.alert('提价成功');#}
+{##}
+{#                        }#}
+{#                    })#}
+{#        });#}
+    </script>
+{% endblock %}
