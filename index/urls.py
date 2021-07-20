@@ -12,7 +12,7 @@ from .views import *
 import re
 
 urlpatterns = [
-    path('', views.index,name='index'),
+    # path('', views.index,name='index'),
     path('addStaffId', views.addStaffId, name='addStaffId'),
     path('searchIndex/', views.searchIndex, name='searchIndex'),
     path('searchStaff/', views.searchStaff, name='searchStaff'),
