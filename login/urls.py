@@ -5,7 +5,7 @@
 # @Author  : yanlei
 # @FileName: urls.py
 """
-from django.urls import path, re_path
+from django.urls import path, re_path,include
 from . import views
 from .views import *
 import re
@@ -13,6 +13,7 @@ import re
 urlpatterns = [
     path('', views.login,name='login'),
     path('login/', views.login, name='login'),
+
 
     # 定义首页的路由
     # path('', views.homePage, name='homePage'),
