@@ -7,13 +7,14 @@
 
 
 from django.urls import path, re_path
-from . import views
+from index import views
 from .views import *
 import re
 
 urlpatterns = [
     # path('', views.index,name='index'),
-    path('addStaffId', views.addStaffId, name='addStaffId'),
+    path('index/', views.index, name='index'),
+    path('addStaffId/', views.addStaffId, name='addStaffId'),
     path('searchIndex/', views.searchIndex, name='searchIndex'),
     path('searchStaff/', views.searchStaff, name='searchStaff'),
     path('searchHis/', views.searchHis, name='searchHis'),

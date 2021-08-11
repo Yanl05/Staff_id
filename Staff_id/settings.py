@@ -22,10 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'du9%e0vo++m@-^)yn1&oq99o8jixgwy_y^ro9f9-j%cf=rfbhq'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -124,11 +121,28 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+
+# SECURITY WARNING: don't run with debug turned on in production!
+#上线模式
+# DEBUG = False
+# ALLOWED_HOSTS = ['*']
+# STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
+# STATIC_URL = '/static/'
+# STATICFILES_DIRS = [os.path.join(STATIC_ROOT, 'admin')]
+
+
+# 调试模式
+DEBUG = True
+ALLOWED_HOSTS = []
 STATIC_URL = '/static/'
 # 设置根目录的静态资源文件夹
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),
+# 上线模式需要注释掉
+STATICFILES_DIRS = [
+                    os.path.join(BASE_DIR, 'static'),
                     # 设置app的静态资源文件夹
                     #os.path.join(BASE_DIR, 'index/Mystatic'),
                     ]
+
+
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)

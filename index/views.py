@@ -1,18 +1,30 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse
 
 from .models import StaffInfo
 from index import models
 import json
 import os
+from util import auto_email
 # Create your views here.
 
+from functools import wraps
+def check_login(f):
+    @wraps(f)
+    def inner(request, *args, **kwargs):
+        next_url = request.get_full_path()
+        print(next_url)
+        if request.session.get("is_login")=="1":
+            return f(request, *args, **kwargs)
+        else:
+            return redirect("/login/?next={}".format(next_url))
+    return inner
 
-
+@check_login
 def index(request):
     return render(request,'index.html')
 
-
+@check_login
 def addStaffId(request):
     if request.method == 'POST':
         """
@@ -55,15 +67,21 @@ def addStaffId(request):
 
         staff = models.StaffInfo.objects.create(**data)
         if staff:
+            # 新增成功，则向邮箱发送信息
+            data = {'name':name, 'zhicheng':zhicheng, 'keshi':keshi,'gangwei':gangwei}
+            auto_email.Send_Mail(config.Mail_User, config.Mail_Pwd, config.Mail_To,data)
+
             return render(request,'success.html')
         else:
             return render(request,'failtoadd.html')
-    return render(request,'addStaffId.html')
+    else:
+        return render(request,'addStaffId.html')
 
+@check_login
 def searchIndex(request):
     return render(request, 'serachHistory.html')
 
-
+@check_login
 def searchStaff(request):
     name = request.POST.get('name')
     keshi = request.POST.get('keshi')
@@ -97,6 +115,7 @@ def searchStaff(request):
     return HttpResponse(data, content_type="application/json")
 
 from util import config,linkOra
+@check_login
 def searchHis(request):
     if request.method == 'GET':
         return render(request, 'serachHis.html')
