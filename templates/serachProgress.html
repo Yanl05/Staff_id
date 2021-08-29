@@ -1,0 +1,142 @@
+{% extends "homePage.html" %}
+
+{% block page-main %}
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>新增工号记录/进度 查询</legend>
+    </fieldset>
+
+
+    {#    <form class="layui-form" lay-filter="example" method="post" action="/searchStaff">#}
+    {#    <form class="layui-form">#}
+    <div class="layui-inline">
+        <label class="layui-form-label">姓名:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="queryname" id="queryname" lay-verify="required" autocomplete="off"
+                   class="layui-input"
+                   placeholder="请输入姓名">
+        </div>
+    </div>
+
+    <div class="layui-inline">
+        <label class="layui-form-label">工作科室:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="querykeshi" id="querykeshi" lay-verify="required" autocomplete="off"
+                   class="layui-input"
+                   placeholder="请输入科室">
+        </div>
+    </div>
+
+    <div class="layui-form-item" style="padding-top: 30px;">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" id="send-button">立即提交</button>
+            <a href="/index/searchIndex/">
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </a>
+        </div>
+    </div>
+    {#    </form>#}
+
+
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>结果</legend>
+    </fieldset>
+
+    <table class="layui-hide" id="progress" lay-filter="progress"></table>
+
+    <script type="text/html" id="barDemo">
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+
+
+
+    <script>
+        layui.use('table', function () {
+            var table = layui.table
+                , form = layui.form;
+
+            $(function () {
+                $.ajax(({
+                    url: "/index/searchProgress/",
+                    type: "post",
+                    data: {
+                        "pageNum": 1
+                    },
+                    success: function (data) {
+                        if (data.status === 1) {
+                            tabledata = data.data;
+                            //console.log(tabledata);
+                            table.render({
+                                elem: '#progress'
+                                , url: ''
+                                , data: tabledata
+                                , cellMinWidth: 80
+                                , cols: [[
+                                    {type: 'numbers'}
+                                    {#, {type: 'checkbox'}#}
+                                    , {field: 'name', title: '姓名', width: 150, unresize: true}
+                                    , {field: 'keshi', title: '科室', width: 150}
+                                    , {field: 'zhicheng', title: '职称', width: 150}
+                                    , {field: 'gangwei', title: '岗位', width: 150}
+
+                                    , {
+                                        field: 'jindu',
+                                        title: '开通进度',
+                                        width: 110,
+
+                                        unresize: true
+                                    }
+                                    , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150}
+                                ]]
+                                , page: true
+
+                            });
+                            $(function () {
+                                //监听行工具事件
+                                table.on('tool(progress)', function (obj) {
+                                    var data = obj.data;
+                                    console.log(data);
+                                    if (obj.event === 'del') {
+                                        layer.confirm('真的删除行么', function (index) {
+                                            obj.del();
+                                            layer.close(index);
+                                        });
+                                    } else if (obj.event === 'edit') {
+                                        // 修改状态
+                                        var name = obj.data.name;
+                                        var keshi = obj.data.keshi;
+                                        var jindu = obj.data.jindu;
+                                        console.log(data.name);
+                                        console.log(keshi);
+                                        console.log(jindu);
+
+                                        layer.prompt({
+                                            title:"请填写工号：",
+                                            formType: 2
+                                            ,content:'<div><p>请将以下文字替换为工号:</p><textarea name="txt_remark" id="remark" style="width:200px;height:80px;"></textarea></div>'
+                                            , value: data.jindu
+
+                                        }, function (value, index) {
+                                            obj.update({
+                                                email: value
+                                            });
+                                            layer.close(index);
+                                        });
+                                    }
+                                });
+                            });
+
+                        }
+                    }
+
+
+                }))
+            });
+
+
+        });
+
+
+    </script>
+
+{% endblock %}

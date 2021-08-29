@@ -17,6 +17,8 @@ urlpatterns = [
     path('addStaffId/', views.addStaffId, name='addStaffId'),
     path('searchIndex/', views.searchIndex, name='searchIndex'),
     path('searchStaff/', views.searchStaff, name='searchStaff'),
+    path('searchProgress/', views.searchProgress, name='searchProgress'),
+    path('updateStaff/', views.updateStaff, name='updateStaff'),
     path('searchHis/', views.searchHis, name='searchHis'),
 
     # 定义首页的路由

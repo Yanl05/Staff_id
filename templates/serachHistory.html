@@ -10,37 +10,71 @@
 
 
     {#    <form class="layui-form" lay-filter="example" method="post" action="/searchStaff">#}
-{#    <form class="layui-form">#}
-        <div class="layui-inline">
-            <label class="layui-form-label">姓名:</label>
-            <div class="layui-input-inline">
-                <input type="text" name="queryname" id="queryname" lay-verify="required" autocomplete="off" class="layui-input"
-                       placeholder="请输入姓名">
-            </div>
+    {#    <form class="layui-form">#}
+    <div class="layui-inline">
+        <label class="layui-form-label">姓名:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="queryname" id="queryname" lay-verify="required" autocomplete="off"
+                   class="layui-input"
+                   placeholder="请输入姓名">
         </div>
+    </div>
 
-        <div class="layui-inline">
-            <label class="layui-form-label">工作科室:</label>
-            <div class="layui-input-inline">
-                <input type="text" name="querykeshi" id="querykeshi" lay-verify="required" autocomplete="off" class="layui-input"
-                       placeholder="请输入科室">
-            </div>
+    <div class="layui-inline">
+        <label class="layui-form-label">工作科室:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="querykeshi" id="querykeshi" lay-verify="required" autocomplete="off"
+                   class="layui-input"
+                   placeholder="请输入科室">
         </div>
+    </div>
 
-        <div class="layui-form-item" style="padding-top: 30px;">
-            <div class="layui-input-block">
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" id="send-button">立即提交</button>
-                <a href="/index/searchIndex/"><button type="reset" class="layui-btn layui-btn-primary">重置</button></a>
-            </div>
+    <div class="layui-form-item" style="padding-top: 30px;">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1" id="send-button">立即提交</button>
+            <a href="/index/searchIndex/">
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </a>
         </div>
-{#    </form>#}
+    </div>
+    {#    </form>#}
 
 
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
         <legend>结果</legend>
     </fieldset>
 
+  {#    横向时间轴#}
+{#<div class="time-line">#}
+{#	<div class="left-btn"></div>#}
+{#	<div class="right-btn"></div>#}
+{#	<div class="time-box">#}
+{#		<ul>#}
+{#			<li class="active">#}
+{#				<div class="point"></div>#}
+{#				<h3>2018/12/15入职</h3>#}
+{#				<p>在深圳大区销售SOP部门担任运营设计师</p>#}
+{#			</li>#}
+{#			<li>#}
+{#				<div class="point"></div>#}
+{#				<h3>2018/12/15入职</h3>#}
+{#				<p>在深圳大区销售SOP部门担任运营设计师</p>#}
+{#			</li>#}
+{#			<li>#}
+{#				<div class="point"></div>#}
+{#				<h3>2018/12/15入职</h3>#}
+{#				<p>在深圳大区销售SOP部门担任运营设计师</p>#}
+{#			</li>#}
+{##}
+{##}
+{#		</ul>#}
+{#	</div>#}
+{#</div>#}
+
+
     <form class="layui-form" lay-filter="example">
+
+
         <div class="layui-inline">
             <label class="layui-form-label">姓名:</label>
             <div class="layui-input-inline">
@@ -59,14 +93,14 @@
             <label class="layui-form-label">工作科室:</label>
             <div class="layui-input-inline">
                 <input type="text" name="keshi" id="keshi" lay-verify="required" autocomplete="off"
-                       class="layui-input layui-disabled" >
+                       class="layui-input layui-disabled">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">工作岗位:</label>
             <div class="layui-input-inline">
                 <input type="text" name="gangwei" id="gangwei" lay-verify="required" autocomplete="off"
-                       class="layui-input layui-disabled" >
+                       class="layui-input layui-disabled">
             </div>
         </div>
 
@@ -116,7 +150,8 @@
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label">备注:</label>
             <div class="layui-input-block">
-                <textarea placeholder="请输入内容" name="bz" class="layui-textarea layui-disabled" style="width: 500px"></textarea>
+                <textarea placeholder="请输入内容" name="bz" class="layui-textarea layui-disabled"
+                          style="width: 500px"></textarea>
             </div>
 
         </div>
@@ -159,7 +194,7 @@
                 $.ajax({
                     url: "/index/searchStaff/",
                     type: "post",
-{#                    async: false,#}
+                    {#                    async: false,#}
                     data: {
                         "name": name,
                         "keshi": keshi
@@ -168,7 +203,7 @@
 
                         var a = data.fsyp;
                         console.log(a);
-{#                        alert(a);#}
+                        {#                        alert(a);#}
                         form.val("example", {
                             "name": data.name
                             , "zhicheng": data.zhicheng // "name": "value"

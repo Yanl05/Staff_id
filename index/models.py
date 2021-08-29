@@ -16,3 +16,7 @@ class StaffInfo(models.Model):
     xkyp = models.CharField(max_length=20)
     mzqx = models.CharField(max_length=20)
     bz = models.CharField(max_length=200)
+
+
+    # 进度
+    jindu = models.CharField(max_length=5,default="待开通")
